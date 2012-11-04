@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Support</title>
+	<link rel="stylesheet" type="text/css" href="support-style.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+	
+	// Вывод сообщения в чат:
+	function putMessage(message, fromWho, time) {
+		$("#support-talk-window").append("<div class='message'><div class='name'>" + fromWho + "</div><div class='time'>" + time + "</div><div class='text'>" + message + "</div></div>");
+		var scrollTo = $("#support-talk-window .message").size() * 60;
+		$("#support-talk-window").scrollTop(scrollTo);
+		$("#support-input textarea").val('');
+	}
+	
+	$(document).ready(function() {
+	
+		var cX = 0, cY =0;
+
+		var socket = io.connect('http://localhost:8080');
+		
+		socket.emit('register', { who: 'operator', name: 'Support' });
+		
+		socket.on('register', function (register) {
+			putMessage(register.message, "Сервер", register.time);
+		})
+		
+		socket.on('message', function (message) {
+			var time = new Date();
+			putMessage(message, "Клиент", time.getHours() + ":" + time.getMinutes())
+		})
+		
+		socket.on('new-client', function (message) {
+			$("#audioring")[0].play();
+			$("#no-requests").fadeOut(500, function() {
+				$("#request-recieved").fadeIn(500);
+			});
+		})
+		
+		$("#accept-request").click(function() {
+			$(this).parent().hide();
+			$("#support-messenger").fadeIn(500);
+			// Указатель мыши:
+			setInterval(function() {
+				socket.emit("cursor", {
+					x: cX,
+					y: cY
+				});
+			}, 1000);
+		});
+		
+		// Отправка сообщения:
+		$("#support-send-button").click(function() {
+			var message = $("#support-input textarea").val();
+			socket.send(message, function() {
+				var time = new Date();
+				putMessage(message, "Я", time.getHours() + ":" + time.getMinutes());
+			});
+		});
+		
+		$("#support-input textarea").keypress(function(event) {
+			if (event.which == 13) $("#support-send-button").click();
+		});
+		
+		$(document).mousemove(function(event) {
+			cX = event.pageX;
+			cY = event.pageY;
+		});
+
+	});
+	</script>
+</head>
+<body>
+
+<div id="incoming-requests">
+	<div id="no-requests">Нет входящих запросов</div>
+	<div id="request-recieved">
+		<span>Получен запрос от клиента!</span>
+		<button id="accept-request">Принять</button>
+	</div>
+</div>
+<div id="support-messenger">
+	<div id="support-talk-window"></div>
+	<button id="support-send-button"></button>
+	<div id="support-input"><textarea></textarea></div>
+</div>
+<audio id="audioring">
+	<source src="/ring.ogg" />
+	<source src="/ring.mp3" />
+</audio>
+</body>
+</html>

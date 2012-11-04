@@ -1,0 +1,113 @@
+#support-messenger  * {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+	font-family: "Trebuchet MS", Tahoma, Arial, Verdana, Sans-serif;
+}
+
+#support-messenger {
+	display: none;
+	position: absolute;
+	top: 50px;
+	left: 300px;
+	width: 250px;
+	border: 1px solid #127c9f;
+	border-radius: 3px;
+	background: #3193b4;
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#messenger-head {
+	height: 30px;
+	padding-left: 30px;
+	line-height: 30px;
+	color: #FFF;
+	background: #1a4d5f url('images/support.png') 5px 5px no-repeat;
+}
+
+#messenger-head .close {
+	float: right;
+	margin: 7px 3px 0 0;
+}
+
+#messenger-talk-window {
+	height: 300px;
+	margin: 5px;
+	font-size: 14px;
+	background: #FFF;
+	border-radius: 4px;
+	overflow: auto;
+}
+
+#messenger-talk-window  .message {
+	padding: 5px;
+}
+
+#messenger-talk-window  .name {
+	padding: 2px;
+	background: #94a9b0;
+	color: #FFF;
+}
+
+#messenger-talk-window  .time {
+	float: right;
+	margin: 5px 5px 0 0;
+}
+
+#messenger-talk-window  .text {
+	padding: 5px 45px 5px 5px;
+}
+
+#messenger-input {
+	margin-right: 70px;
+}
+
+#messenger-input textarea {
+	width: 100%;
+	height: 55px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid #BDBDBD;
+	border-radius: 4px;
+}
+
+#messenger-send-button {
+	float: right;
+	width: 48px;
+	height: 48px;
+	margin: 12px 2px 0 0;
+	background: url('images/enter.png') 0 0 no-repeat;
+	cursor: pointer;
+}
+
+#support-messenger-button {
+	position: fixed;
+	bottom: 0;
+	right: 20px;
+	height: 50px;
+	padding: 0 10px;
+	line-height: 50px;
+	background: #2d86a4;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	font-family: Georgia;
+	font-size: 20px;
+	color: #FFF;
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	cursor: pointer;
+}
+
+#operator-arrow {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 128px;
+	height: 128px;
+	background: url('images/arrow.png') no-repeat;
+}
