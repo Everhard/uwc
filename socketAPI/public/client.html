@@ -1,0 +1,11 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:8080');
+  socket.on('message', function (message) {
+    console.log(message);
+  })
+  setInterval(function(){
+    socket.emit('message', { me: 'client', mytime: new Date() });
+  },1000);
+
+</script>
